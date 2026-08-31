@@ -99,6 +99,34 @@ class Product extends Model
     }
 
     /**
+     * The shape returned to WebMCP tools and the JSON API.
+     *
+     * Deliberately mirrors what the page itself shows a visitor: the exact
+     * stock count is withheld the same way the badge withholds it, so an agent
+     * cannot read anything out of the catalogue that a person browsing it
+     * could not. The URL is included so an agent can send someone to the page.
+     *
+     * @return array<string, mixed>
+     */
+    public function toToolArray(): array
+    {
+        return [
+            'sku' => $this->sku,
+            'slug' => $this->slug,
+            'name' => (string) $this->name,
+            'description' => (string) $this->description,
+            'price' => $this->price,
+            'currency' => config('shop.currency'),
+            'in_stock' => $this->isInStock(),
+            'category' => [
+                'slug' => $this->category->slug,
+                'name' => (string) $this->category->name,
+            ],
+            'url' => route('products.show', ['slug' => $this->slug]),
+        ];
+    }
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array

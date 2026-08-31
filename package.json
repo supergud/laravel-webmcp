@@ -4,7 +4,9 @@
     "type": "module",
     "scripts": {
         "build": "vp build",
-        "dev": "vp dev"
+        "dev": "vp dev",
+        "test": "vp test --run",
+        "test:watch": "vp test"
     },
     "dependencies": {
         "@laravel/passkeys": "^0.2.0",

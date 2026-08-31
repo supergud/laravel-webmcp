@@ -3,8 +3,11 @@ includes:
     - vendor/nesbot/carbon/extension.neon
 
 parameters:
-    bootstrapFiles:
-        - phpstan-bootstrap.php
+    # PHPStan's parallel workers intermittently fail to run larastan's bootstrap
+    # on Windows, leaving LARAVEL_VERSION undefined and aborting the run. The
+    # codebase is small enough that a single process is the cheaper fix.
+    parallel:
+        maximumNumberOfProcesses: 1
 
     paths:
         - app/
