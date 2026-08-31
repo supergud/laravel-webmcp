@@ -26,7 +26,11 @@ Route::get('/', function (Request $request) {
 Route::prefix('{locale}')
     ->whereIn('locale', Locales::codes())
     ->group(function () {
-        Route::view('/', 'welcome')->name('home');
+        Route::livewire('/', 'pages::shop.products')->name('home');
+        // The parameter is {slug}, not {product}: a route parameter whose name
+        // matches a Livewire component property typed as a model makes Livewire
+        // try to resolve it as one, which 404s before mount() ever runs.
+        Route::livewire('products/{slug}', 'pages::shop.product')->name('products.show');
     });
 
 /*
