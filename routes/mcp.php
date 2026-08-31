@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Mcp\CartController;
 use App\Http\Controllers\Mcp\CatalogController;
+use App\Http\Controllers\Mcp\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +25,14 @@ Route::middleware('throttle:mcp-read')->group(function () {
     Route::get('products', [CatalogController::class, 'products'])->name('products');
     Route::get('products/{identifier}', [CatalogController::class, 'product'])->name('products.show');
     Route::get('categories', [CatalogController::class, 'categories'])->name('categories');
+    Route::get('cart', [CartController::class, 'show'])->name('cart');
+});
+
+Route::middleware('throttle:mcp-write')->group(function () {
+    Route::post('cart/items', [CartController::class, 'store'])->name('cart.store');
+    Route::patch('cart/items/{sku}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('cart/items/{sku}', [CartController::class, 'destroyItem'])->name('cart.items.destroy');
+    Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    Route::post('locale', [LocaleController::class, 'update'])->name('locale');
 });

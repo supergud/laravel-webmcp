@@ -36,11 +36,32 @@ export function stubBrowser(options = {}) {
         navigatorStub.modelContext = modelContext;
     }
 
+    const livewire =
+        options.livewire === false
+            ? undefined
+            : { dispatch: vi.fn(), navigate: vi.fn() };
+
+    const windowStub = {
+        location: {
+            origin: 'https://laravel-webmcp.local',
+            pathname: options.pathname ?? '/en',
+            assign: vi.fn(),
+        },
+        Livewire: livewire,
+    };
+
     vi.stubGlobal('document', documentStub);
     vi.stubGlobal('navigator', navigatorStub);
-    vi.stubGlobal('window', { location: { origin: 'https://laravel-webmcp.local' } });
+    vi.stubGlobal('window', windowStub);
 
-    return { modelContext, registered, document: documentStub, navigator: navigatorStub };
+    return {
+        modelContext,
+        registered,
+        livewire,
+        window: windowStub,
+        document: documentStub,
+        navigator: navigatorStub,
+    };
 }
 
 /**
