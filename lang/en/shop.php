@@ -74,6 +74,15 @@ return [
         'view' => 'View',
     ],
 
+    'errors' => [
+        'quantity_max' => 'You can order at most :max of any single product.',
+        'items_max' => 'A cart can hold at most :max different products.',
+        'total_max' => 'A cart can total at most NT$:max.',
+        'product_unavailable' => 'That product is not available.',
+        'out_of_stock' => 'That product is out of stock.',
+        'insufficient_stock' => 'Only :stock left in stock.',
+    ],
+
     'status' => [
         'draft' => 'Awaiting confirmation',
         'pending' => 'Pending',

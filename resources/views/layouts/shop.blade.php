@@ -31,6 +31,10 @@
                 <flux:navbar.item :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
                     {{ __('shop.nav.products') }}
                 </flux:navbar.item>
+
+                {{-- Livewire, not a plain link: it re-renders on the cart-updated
+                     event that both the UI and the WebMCP tools dispatch. --}}
+                <livewire:cart-badge />
             </flux:navbar>
 
             <flux:spacer />

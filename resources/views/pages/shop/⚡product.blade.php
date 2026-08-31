@@ -57,5 +57,13 @@ new #[Layout('layouts.shop')] class extends Component {
                 <flux:badge color="zinc">{{ __('shop.products.out_of_stock') }}</flux:badge>
             @endif
         </div>
+
+        <div>
+            <livewire:add-to-cart
+                :product-id="$product->id"
+                :product-name="(string) $product->name"
+                :available="$product->isInStock()"
+            />
+        </div>
     </div>
 </div>

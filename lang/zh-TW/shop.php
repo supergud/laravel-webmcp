@@ -74,6 +74,15 @@ return [
         'view' => '查看',
     ],
 
+    'errors' => [
+        'quantity_max' => '同一件商品最多只能購買 :max 件。',
+        'items_max' => '購物車最多只能放 :max 種商品。',
+        'total_max' => '購物車金額上限為 NT$:max。',
+        'product_unavailable' => '這件商品目前無法購買。',
+        'out_of_stock' => '這件商品已售完。',
+        'insufficient_stock' => '庫存只剩 :stock 件。',
+    ],
+
     'status' => [
         'draft' => '等待確認',
         'pending' => '處理中',

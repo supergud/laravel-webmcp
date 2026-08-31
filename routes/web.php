@@ -31,6 +31,7 @@ Route::prefix('{locale}')
         // matches a Livewire component property typed as a model makes Livewire
         // try to resolve it as one, which 404s before mount() ever runs.
         Route::livewire('products/{slug}', 'pages::shop.product')->name('products.show');
+        Route::livewire('cart', 'pages::shop.cart')->name('cart');
     });
 
 /*
