@@ -45,6 +45,14 @@
 
             @auth
                 <flux:navbar class="items-center">
+                    <flux:navbar.item
+                        :href="route('orders.index')"
+                        :current="request()->routeIs('orders.*')"
+                        wire:navigate
+                    >
+                        {{ __('shop.nav.orders') }}
+                    </flux:navbar.item>
+
                     <flux:navbar.item :href="route('dashboard')" wire:navigate>
                         {{ __('shop.nav.dashboard') }}
                     </flux:navbar.item>

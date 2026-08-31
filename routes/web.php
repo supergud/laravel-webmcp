@@ -32,6 +32,14 @@ Route::prefix('{locale}')
         // try to resolve it as one, which 404s before mount() ever runs.
         Route::livewire('products/{slug}', 'pages::shop.product')->name('products.show');
         Route::livewire('cart', 'pages::shop.cart')->name('cart');
+
+        // Checkout and order history require an account: every order row is
+        // scoped by user_id, and there is no guest order to look up.
+        Route::middleware('auth')->group(function () {
+            Route::livewire('checkout', 'pages::shop.checkout')->name('checkout');
+            Route::livewire('orders', 'pages::shop.orders')->name('orders.index');
+            Route::livewire('orders/{number}', 'pages::shop.order')->name('orders.show');
+        });
     });
 
 /*

@@ -61,6 +61,11 @@ return [
         'shipping_email' => 'Email',
         'shipping_address' => 'Shipping address',
         'pending_draft' => 'You have an order awaiting your confirmation.',
+        'prepare' => 'Prepare order',
+        'prepared' => 'Order :number is ready for your confirmation.',
+        'cancelled' => 'The draft order was cancelled.',
+        'expires_in' => 'Expires :time',
+        'no_draft_yet' => 'Fill in the delivery details and prepare the order. An AI agent can do this step for you.',
     ],
 
     'orders' => [
@@ -81,11 +86,17 @@ return [
         'product_unavailable' => 'That product is not available.',
         'out_of_stock' => 'That product is out of stock.',
         'insufficient_stock' => 'Only :stock left in stock.',
+        'cart_empty' => 'Your cart is empty, so there is nothing to check out.',
+        'no_draft' => 'There is no order waiting for confirmation.',
+        'invalid_confirmation' => 'This confirmation is no longer valid. Please prepare the order again.',
+        'login_required' => 'Please log in before checking out.',
+        'draft_product_unavailable' => ':sku is no longer available, so this order cannot be placed.',
+        'draft_price_changed' => 'The price of :sku changed. Please prepare the order again.',
+        'draft_out_of_stock' => 'There is no longer enough stock of :sku.',
     ],
 
     'status' => [
         'draft' => 'Awaiting confirmation',
-        'pending' => 'Pending',
         'paid' => 'Paid',
         'cancelled' => 'Cancelled',
     ],

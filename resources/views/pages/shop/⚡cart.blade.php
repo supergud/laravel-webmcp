@@ -140,11 +140,9 @@ new #[Layout('layouts.shop')] class extends Component {
                     {{ __('shop.cart.total') }}: NT${{ number_format($this->cart->total) }}
                 </flux:heading>
 
-                @if (Route::has('checkout'))
-                    <flux:button :href="route('checkout')" variant="primary" wire:navigate data-test="cart-checkout">
-                        {{ __('shop.cart.checkout') }}
-                    </flux:button>
-                @endif
+                <flux:button :href="route('checkout')" variant="primary" wire:navigate data-test="cart-checkout">
+                    {{ __('shop.cart.checkout') }}
+                </flux:button>
             </div>
         </div>
     @endif

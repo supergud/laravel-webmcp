@@ -61,6 +61,11 @@ return [
         'shipping_email' => '電子郵件',
         'shipping_address' => '收件地址',
         'pending_draft' => '你有一筆訂單正在等待確認。',
+        'prepare' => '準備訂單',
+        'prepared' => '訂單 :number 已準備好，等待你確認。',
+        'cancelled' => '草稿訂單已取消。',
+        'expires_in' => ':time 後過期',
+        'no_draft_yet' => '請填寫收件資訊並準備訂單。這個步驟可以交給 AI 助理代勞。',
     ],
 
     'orders' => [
@@ -81,11 +86,17 @@ return [
         'product_unavailable' => '這件商品目前無法購買。',
         'out_of_stock' => '這件商品已售完。',
         'insufficient_stock' => '庫存只剩 :stock 件。',
+        'cart_empty' => '購物車是空的，沒有可結帳的商品。',
+        'no_draft' => '目前沒有等待確認的訂單。',
+        'invalid_confirmation' => '這筆確認已失效，請重新準備訂單。',
+        'login_required' => '請先登入再進行結帳。',
+        'draft_product_unavailable' => ':sku 已無法購買，這筆訂單無法成立。',
+        'draft_price_changed' => ':sku 的價格已變動，請重新準備訂單。',
+        'draft_out_of_stock' => ':sku 的庫存已不足。',
     ],
 
     'status' => [
         'draft' => '等待確認',
-        'pending' => '處理中',
         'paid' => '已付款',
         'cancelled' => '已取消',
     ],
