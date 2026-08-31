@@ -36,8 +36,16 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
       - name: Install PHP dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Install JavaScript dependencies
+        run: npm ci
 
       - name: Prepare environment
         run: |
@@ -46,6 +54,13 @@ jobs:
           # The SQLite file is gitignored, and artisan migrate will not create
           # one non-interactively.
           touch database/database.sqlite
+
+      - name: Build assets
+        # Built here, in the PHP job, because the build needs both toolchains:
+        # resources/css/app.css imports Flux's stylesheet out of vendor/. The
+        # feature tests then need the resulting manifest, since @vite() throws
+        # without it and every page render would 500.
+        run: npm run build
 
       - name: Check formatting
         run: composer run lint:check
@@ -81,9 +96,9 @@ jobs:
 
       - name: Test the WebMCP layer
         # These cover tool declarations, request shapes and failure handling.
-        # They cannot cover Chrome accepting the tools: navigator.modelContext
+        # They cannot cover Chrome accepting the tools: document.modelContext
         # only exists behind an experimental flag, so that step stays manual.
+        #
+        # No build here: this job has no vendor/ directory, and the asset build
+        # needs one. The build runs in the PHP job instead.
         run: npm test
-
-      - name: Build assets
-        run: npm run build
