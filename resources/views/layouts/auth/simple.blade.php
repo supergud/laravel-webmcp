@@ -15,6 +15,12 @@
                 <div class="flex flex-col gap-6">
                     {{ $slot }}
                 </div>
+
+                {{-- Auth routes have no {locale} segment, so this switcher goes
+                     through the session-based locale.switch route. --}}
+                <div class="flex justify-center pt-2">
+                    <x-language-switcher />
+                </div>
             </div>
         </div>
 

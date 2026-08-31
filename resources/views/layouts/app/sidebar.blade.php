@@ -21,14 +21,22 @@
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                <flux:sidebar.item icon="shopping-cart" :href="route('home')" wire:navigate>
+                    {{ __('shop.nav.products') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/supergud/laravel-webmcp" target="_blank">
                     {{ __('Repository') }}
                 </flux:sidebar.item>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                <flux:sidebar.item icon="book-open-text" href="https://github.com/webmachinelearning/webmcp" target="_blank">
                     {{ __('Documentation') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
+
+            <div class="px-2 pb-2">
+                <x-language-switcher />
+            </div>
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
