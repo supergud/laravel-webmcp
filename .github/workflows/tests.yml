@@ -10,8 +10,17 @@ permissions:
   contents: read
 
 jobs:
-  ci:
+  php:
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Laravel 13 itself allows 8.3, but the Symfony 8 components it pulls
+        # require >= 8.4.1, so 8.4 is this project's real floor. 8.5 is what
+        # the demo actually serves on.
+        php: ['8.4', '8.5']
 
     steps:
       - name: Checkout code
@@ -22,17 +31,59 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
-          php-version: '8.3'
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, sqlite3, pdo_sqlite, zip, gd
           tools: composer:v2
           coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          # The SQLite file is gitignored, and artisan migrate will not create
+          # one non-interactively.
+          touch database/database.sqlite
+
+      - name: Check formatting
+        run: composer run lint:check
+
+      - name: Check types
+        run: composer run types:check
+
+      - name: Run migrations and seeders
+        # Proves a fresh clone can actually be brought up, which is the first
+        # thing anyone reading this repository will try.
+        run: php artisan migrate --force --seed
+
+      - name: Run tests
+        run: php artisan test
+
+  javascript:
+    name: JavaScript
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '22'
 
-      - name: Setup Application
-        run: composer setup
+      - name: Install JavaScript dependencies
+        run: npm ci
 
-      - name: Run CI Checks
-        run: composer ci:check
+      - name: Test the WebMCP layer
+        # These cover tool declarations, request shapes and failure handling.
+        # They cannot cover Chrome accepting the tools: navigator.modelContext
+        # only exists behind an experimental flag, so that step stays manual.
+        run: npm test
+
+      - name: Build assets
+        run: npm run build
