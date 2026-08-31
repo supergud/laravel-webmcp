@@ -66,6 +66,9 @@ return [
         'cancelled' => 'The draft order was cancelled.',
         'expires_in' => 'Expires :time',
         'no_draft_yet' => 'Fill in the delivery details and prepare the order. An AI agent can do this step for you.',
+        'agent_next_step' => 'The order is prepared but NOT placed. The customer must confirm it themselves on the checkout page. There is no tool that can confirm an order.',
+        'agent_cannot_confirm' => 'Confirming an order is done by the customer in the page. No tool can confirm on their behalf.',
+        'login_first' => 'The customer must be signed in before an order can be prepared. Ask them to log in; there is no tool that can sign them in.',
     ],
 
     'orders' => [
@@ -93,6 +96,7 @@ return [
         'draft_product_unavailable' => ':sku is no longer available, so this order cannot be placed.',
         'draft_price_changed' => 'The price of :sku changed. Please prepare the order again.',
         'draft_out_of_stock' => 'There is no longer enough stock of :sku.',
+        'order_not_found' => 'No such order.',
     ],
 
     'status' => [

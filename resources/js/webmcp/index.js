@@ -2,6 +2,7 @@ import { debug, resolveModelContext } from './support.js';
 import { cartTools } from './tools/cart.js';
 import { catalogTools } from './tools/catalog.js';
 import { localeTools } from './tools/locale.js';
+import { orderTools } from './tools/orders.js';
 
 /**
  * Registers this shop's tools with the browser's model context.
@@ -17,7 +18,7 @@ import { localeTools } from './tools/locale.js';
  * expected state, and a demo should not be reading a red console because of it.
  */
 
-const tools = [...catalogTools, ...cartTools, ...localeTools];
+const tools = [...catalogTools, ...cartTools, ...localeTools, ...orderTools];
 
 let registered = false;
 

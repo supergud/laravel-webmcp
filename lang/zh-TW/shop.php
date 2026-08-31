@@ -66,6 +66,9 @@ return [
         'cancelled' => '草稿訂單已取消。',
         'expires_in' => ':time 後過期',
         'no_draft_yet' => '請填寫收件資訊並準備訂單。這個步驟可以交給 AI 助理代勞。',
+        'agent_next_step' => '訂單已準備好，但尚未成立。必須由顧客本人在結帳頁面確認，沒有任何工具可以代為確認。',
+        'agent_cannot_confirm' => '訂單確認必須由顧客本人在頁面上完成，沒有任何工具可以代為確認。',
+        'login_first' => '顧客必須先登入才能準備訂單。請引導他們登入，沒有任何工具可以代為登入。',
     ],
 
     'orders' => [
@@ -93,6 +96,7 @@ return [
         'draft_product_unavailable' => ':sku 已無法購買，這筆訂單無法成立。',
         'draft_price_changed' => ':sku 的價格已變動，請重新準備訂單。',
         'draft_out_of_stock' => ':sku 的庫存已不足。',
+        'order_not_found' => '查無此訂單。',
     ],
 
     'status' => [
