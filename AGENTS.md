@@ -12,9 +12,11 @@ incidental to it.
 
 ## Running things
 
-Requires **PHP 8.4+**. Laravel 13 itself allows 8.3, but the Symfony 8
-components it pulls in require `>= 8.4.1`, so `composer install` fails on 8.3
-in `platform_check`.
+Requires **PHP 8.3+**, because the demo host serves 8.3. `config.platform.php`
+in `composer.json` pins resolution to 8.3, which is what keeps Laravel 13 on
+Symfony 7.4 and Pest on 4. **Do not remove that pin**: without it a
+`composer update` from an 8.4/8.5 machine pulls Symfony 8 (`>= 8.4.1`) back in,
+and the resulting lock fails the host's `platform_check` on install.
 
 ```bash
 composer install
@@ -27,13 +29,13 @@ npm run build
 
 | Task | Command |
 | --- | --- |
-| PHP tests | `php artisan test` (Pest 5 on PHPUnit 13) |
+| PHP tests | `php artisan test` (Pest 4 on PHPUnit 12) |
 | JavaScript tests | `npm test` (Vitest, via `vp test`) |
 | Formatting | `vendor/bin/pint` |
 | Static analysis | `vendor/bin/phpstan analyse` (level 7, must stay at zero errors) |
 
-Run all four before proposing a change. CI runs the same set on PHP 8.4 and
-8.5.
+Run all four before proposing a change. CI runs the same set on PHP 8.3, 8.4
+and 8.5.
 
 ### On this developer's machine (ServBay, Windows)
 
@@ -42,8 +44,12 @@ ServBay's binary directly:
 
 ```
 /c/ServBay/packages/php/8.5/php.exe
+/c/ServBay/packages/php/8.3/php.exe    # matches the demo host
 /c/ServBay/packages/composer/composer
 ```
+
+Anything that touches dependencies or PHP-version-sensitive syntax should be
+re-run under 8.3 as well, since that is the version the demo is served on.
 
 `composer run <script>` resolves its own PHP and may pick a different version;
 invoke `vendor/bin/*` tools with the 8.5 binary directly instead.

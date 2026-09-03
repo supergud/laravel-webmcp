@@ -56,7 +56,7 @@ Full reasoning, the tool reference and the honest limits:
 
 | | |
 | --- | --- |
-| PHP | **8.4+** (Laravel 13 allows 8.3, but its Symfony 8 dependencies need ≥ 8.4.1) |
+| PHP | **8.3+** (the lock is pinned to 8.3 via `config.platform`, which holds Laravel 13 on Symfony 7.4) |
 | Node | 22+ |
 | Database | SQLite — no server needed |
 | Browser | **Chrome 146+** with an experimental flag, to use the tools |
@@ -143,7 +143,7 @@ With the extension's chat pointed at the shop:
 ## Tests
 
 ```bash
-php artisan test    # 230 tests: services, API, authorization, injection, headers
+php artisan test    # 228 tests: services, API, authorization, injection, headers
 npm test            # 61 tests: tool declarations, request shapes, failure handling
 ```
 
@@ -182,8 +182,12 @@ API）把所有功能開放給瀏覽器裡的 AI agent 使用。
 
 ### 需求
 
-PHP **8.4 以上**（Laravel 13 本身允許 8.3，但它依賴的 Symfony 8 需要 8.4.1+）、
-Node 22+、Chrome **146 以上**。資料庫用 SQLite，不需要另外架資料庫伺服器。
+PHP **8.3 以上**、Node 22+、Chrome **146 以上**。資料庫用 SQLite，不需要另外
+架資料庫伺服器。
+
+`composer.json` 的 `config.platform` 把相依解析釘在 8.3，Laravel 13 因此用
+Symfony 7.4 而不是需要 8.4.1+ 的 Symfony 8。在 8.4/8.5 的機器上拿掉這個設定再
+跑 `composer update`，產生的 lock 就裝不進 8.3 主機了。
 
 ### 安裝
 

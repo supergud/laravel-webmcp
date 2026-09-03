@@ -17,10 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Laravel 13 itself allows 8.3, but the Symfony 8 components it pulls
-        # require >= 8.4.1, so 8.4 is this project's real floor. 8.5 is what
-        # the demo actually serves on.
-        php: ['8.4', '8.5']
+        # 8.3 is the floor because that is what the demo host serves. The
+        # config.platform pin in composer.json holds resolution there, which
+        # keeps Laravel 13 on Symfony 7.4 instead of the 8.x line that needs
+        # >= 8.4.1. 8.5 is what this developer runs locally.
+        php: ['8.3', '8.4', '8.5']
 
     steps:
       - name: Checkout code
